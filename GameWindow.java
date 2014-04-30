@@ -1,47 +1,32 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.JScrollPane;
 
 public class GameWindow extends JFrame {
   private Container container;
   private GamePanel gamePanel;
-  private JTextField consoleField;
-  public static int windowX = 500, windowY = 400;
+  private JTextArea consoleField;
+  public static int windowX = 600, windowY = 400;
   
   public GameWindow(){
     super("GameWindow");
     container = getContentPane();
-    gamePanel = new GamePanel();
+    setUpGUI();
+    gamePanel = new GamePanel( consoleField );
     gamePanel.setFocusable(true);
     container.add(gamePanel);
-    setUpGUI();
-    addMouseListener( new MouseAdapter() {
-        public void mouseMoved(MouseEvent e){
-          String event = e.toString();
-          consoleField.setText(event);
-        }
-      }
-    );
-    setSize(windowX, windowY);
+    setPreferredSize(new Dimension(windowX, windowY));
+    setResizable(false);
+    pack();
     setVisible(true);
   }
   
   public void setUpGUI(){
-    consoleField = new JTextField();
+    consoleField = new JTextArea(3, 1);
+    consoleField.setLineWrap(true);
     consoleField.setText("GameWindow console");
-    container.add(consoleField, BorderLayout.SOUTH);
-  }
-}
-
-class GamePanel extends JPanel{
-  public GamePanel(){
-    setBackground( Color.white );
-  }
-}
-
-class GameTest {
-  public static void main(String args[]){
-    GameWindow application = new GameWindow();
-    application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    container.add((new JScrollPane(consoleField)),
+      BorderLayout.SOUTH);
   }
 }
