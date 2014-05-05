@@ -8,34 +8,36 @@ public class GamePanel extends JPanel{
     this.consoleField = consoleField;
     addMouseListener( new MouseListener() {
       public void mouseEntered(MouseEvent e){
-        String event = e.toString();
-        GamePanel.this.consoleField.setText(event);
+        appendConsole(e.toString());
       }
       public void mouseClicked(MouseEvent e){
-        String event = e.toString();
-        GamePanel.this.consoleField.setText(event);
+        appendConsole(e.toString());
       }
       public void mouseExited(MouseEvent e){
-        String event = e.toString();
-        GamePanel.this.consoleField.setText(event);
+        appendConsole(e.toString());
       }
       public void mouseReleased(MouseEvent e){
-        String event = e.toString();
-        GamePanel.this.consoleField.setText(event);
+        appendConsole(e.toString());
       }
       public void mousePressed(MouseEvent e){
-        String event = e.toString();
-        GamePanel.this.consoleField.setText(event);
+        appendConsole(e.toString());
       }
     }
     );
     
     adMouseMotionListener( new MouseMotionAdapter() {
        public void mouseDragged(MouseEvent e) {
-          String event = e.toString();
-          GamePanel.this.consoleField.setText(event);
+          appendConsole(e.toString());
+       }
+       public void mouseMoved(MouseEvent e) {
+         appendConsole(e.toString());
        }
     }
+    );
     setBackground( Color.black );
+  }
+  
+  public void appendConsole(String eventText) {
+    GamePanel.this.consoleField.setText(eventText)
   }
 }
