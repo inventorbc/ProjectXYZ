@@ -15,7 +15,13 @@ public class DrawThread() extends Thread {
       this.consoleField = consoleField;
    }
    public void run() {
-      gamePanel.setBackground(skyColor);
+      for (int i = 0; i <= 250; i++) {
+         for (int j = 0; i <= 250; i++)
+         {
+            gamePanel.setBackground(new Color(0, i, i));
+         }
+      }
+      
    }
 
 }
