@@ -2,7 +2,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JTextField;
 
-public class DrawThread() extends Thread {
+public class DrawThread extends Thread {
    Graphics g;
    GamePanel gamePanel;
    JTextField consoleField;
