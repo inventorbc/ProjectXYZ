@@ -3,7 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class GamePanel extends JPanel{
-  JTextArea consoleField;
+  private JTextArea consoleField;
   public GamePanel( JTextArea consoleField ){
     this.consoleField = consoleField;
     addMouseListener( new MouseListener() {
@@ -25,7 +25,7 @@ public class GamePanel extends JPanel{
     }
     );
     
-    adMouseMotionListener( new MouseMotionAdapter() {
+    addMouseMotionListener( new MouseMotionAdapter() {
        public void mouseDragged(MouseEvent e) {
           appendConsole(e.toString());
        }
@@ -38,6 +38,6 @@ public class GamePanel extends JPanel{
   }
   
   public void appendConsole(String eventText) {
-    GamePanel.this.consoleField.setText(eventText)
+    GamePanel.this.consoleField.setText(eventText);
   }
 }
