@@ -6,7 +6,7 @@ public class GamePanel extends JPanel{
   JTextArea consoleField;
   public GamePanel( JTextArea consoleField ){
     this.consoleField = consoleField;
-    addMouseListener( new MouseAdapter() {
+    addMouseListener( new MouseListener() {
       public void mouseEntered(MouseEvent e){
         String event = e.toString();
         GamePanel.this.consoleField.setText(event);
@@ -29,6 +29,13 @@ public class GamePanel extends JPanel{
       }
     }
     );
+    
+    adMouseMotionListener( new MouseMotionAdapter() {
+       public void mouseDragged(MouseEvent e) {
+          String event = e.toString();
+          GamePanel.this.consoleField.setText(event);
+       }
+    }
     setBackground( Color.black );
   }
 }
