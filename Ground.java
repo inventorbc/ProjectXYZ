@@ -1,3 +1,5 @@
+import org.lwjgl.opengl.Display;
+
 public class Ground extends GameObject
 {
    public static final int SIZEX = Display.getWidth();
