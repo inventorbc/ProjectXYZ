@@ -7,7 +7,7 @@ public class Dino {
    public Dino()
    {
       objects = new ArrayList<GameObject>();
-      Ground ground = new Ground();
+      Ground ground = new Ground(0f, 0f);
       
       objects.add(ground);
       
