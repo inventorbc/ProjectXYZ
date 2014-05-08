@@ -6,6 +6,7 @@ import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glRotatef;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 import static org.lwjgl.opengl.GL11.glVertex2f;
+import static org.lwjgl.opengl.GL11.glColor3f;
 
 
 public class Draw {
@@ -15,7 +16,6 @@ public class Draw {
 		glPushMatrix();
 		{
 			glTranslatef(x,y,0);
-		
 			glBegin(GL_QUADS);
 			{
 				glVertex2f(0,0);
