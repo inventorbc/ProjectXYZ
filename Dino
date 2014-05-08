@@ -1,0 +1,27 @@
+import java.util.ArrayList;
+import org.lwjgl.util.Keyboard;
+import org.lwjgl.util.Display;
+
+public class Dino {
+   ArrayList<GameObject> objects;
+   public Dino()
+   {
+      objects = new ArrayList<GameObject>();
+      Ground ground = new Ground();
+      
+      objects.add(ground);
+      
+   }
+   
+   public void update()
+   {
+      for( GameObject gO : objects )
+         gO.update();
+   }
+   
+   public void render()
+   {
+      for( GameObject gO : objects )
+         gO.render();
+   }
+}
