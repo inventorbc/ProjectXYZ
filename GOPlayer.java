@@ -1,85 +1,95 @@
 import static org.lwjgl.opengl.GL11.*;
 
-public class GOPlayer extends GameObject{
-	public static final float SIZEX = 30;
-	public static final float SIZEY = 45;
-	private static final int JUMPMAXSPEED = 10;
-	public static float x;
-	public static float y;
+import java.util.ArrayList;
+
+import org.lwjgl.opengl.Display;
+
+public class GOPlayer extends GOCharacter{
 	public float gravityLimit;
-	public float groundLevel;
 	
-	public static boolean isJumping;
-	private boolean climax = false;
+	public static float cameraDeltaXP;
+	public static float cameraDeltaYP;
+
 	
-	public Ground ground;
-	private float jumpSpeed;
-	
-	public GOPlayer(float x, float y, Ground ground)
+	public GOPlayer(float x, float y, ArrayList<Ground> groundObjects)
 	{
-		this.x = x;
-		this.y = y;
-		gravityLimit = 250;
-		groundLevel = 240;
-		jumpSpeed = JUMPMAXSPEED;
-		this.ground = ground;
+		super(x,y, groundObjects);
 	}
 	
+	@Override
 	public void update()
 	{
-		if(Physics.checkCollision(this, ground))
+		//update pos.
+		pos.x = x + SIZEX/2;
+		pos.y = y + SIZEY/2;
+		
+		//update size.
+		size.x = SIZEX/2;
+		size.y = SIZEY/2;
+		
+		if(!checkCollisionGround()){
+			canJump = false;
+			
+			//if jumping at the moment wait
+			if(!isJumping)
+			{
+				//reset falling attributes
+				isFalling = true;
+				fall();
+			}
+			
+			Main.scrollCameraY(cameraDeltaYP -= 2);
+		}
+		else if(checkCollisionGround())
 		{
-			//some stuff
 		}
 		
-		if( isJumping )
+		if(checkCollisionGroundRight())
+		{
+			canMoveRight = false;
+			System.out.println("can right " + canMoveRight + ", can left " + canMoveLeft);
+		}
+		else if(checkCollisionGroundLeft())
+		{
+			canMoveLeft = false;
+			System.out.println("can right " + canMoveRight + ", can left " + canMoveLeft);
+		}
+		else
+		{
+			canMoveRight = true;
+			canMoveLeft = true;
+		}
+		
+		if(isJumping)
 			jump();
 	}
 	
-	public void move(float mag)
+	public void render()
 	{
-		x += mag;
+		glColor3f(0f,1f,0f);
+		Draw.rect(x, y, SIZEX, SIZEY);
+		glColor3f(0,0,0);
+		Draw.rect(pos.x, pos.y, 1, 1);
 	}
 	
-	public void jump()
+	public void moveRight(float mag)
 	{
-		if (isJumping )
+		if(canMoveRight)
 		{
-			
-			y += jumpSpeed;
-			System.out.println("jumpSpeed = " + jumpSpeed);
-			jumpSpeed -= 1;
-			if (jumpSpeed < -JUMPMAXSPEED)
-			{
-				jumpSpeed = JUMPMAXSPEED;
-				isJumping = false;
-			}
+			x += mag; 
+			Main.scrollCameraX(cameraDeltaXP += mag);
 		}
 		
-		/*  Code to be deleted unless needed.
-		 * 
-		 *  For now, we'll keep it.
-		 * 
-		if (y > gravityLimit && climax == false)
+	}
+	
+	public void moveLeft(float mag)
+	{
+		if(canMoveLeft)
 		{
-			climax = true;
-			System.out.println("y > 250, reached climax");
+			x -= mag;
+			Main.scrollCameraX(cameraDeltaXP -= mag);
 		}
-		if (y == groundLevel && isJumping) {
-			isJumping = false;
-			climax = false;
-			System.out.println("isJumping = " + isJumping + "climax = " + climax);
-		}
-		else if (climax) {
-			y -= 1;
-			System.out.println("descending");
-		}
-		else if (!climax){
-			y += 1;
-			isJumping = true;
-			System.out.println("still jumping, isJumping = true climax:" + climax);
-		}
-		*/
+		
 	}
 	
 	public void setGravityLimit(float gravity)
@@ -87,11 +97,8 @@ public class GOPlayer extends GameObject{
 		gravityLimit = gravity;
 	}
 	
-	public void render()
+	public String toString()
 	{
-		glColor3f(1f,1f,1f);
-		Draw.rect(x, y, SIZEX, SIZEY);
+		return "y=" + y;
 	}
-	
-
 }
