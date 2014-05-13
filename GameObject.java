@@ -5,6 +5,8 @@ public abstract class GameObject {
 	protected float y;
 	protected float sx;
 	protected float sy;
+	protected Vector2Float pos;
+	protected Vector2Float size;
 	
 	abstract void update();
 	public void render()
